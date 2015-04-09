@@ -15,6 +15,7 @@ from paste.models import Paste
 
 def handle_new_paste(data, remote_ip_addr):
     p = Paste(data=data, remote_ip_addr=remote_ip_addr)
+    p.save()
     return p
 
 def delete_paste(paste):
@@ -32,9 +33,11 @@ def print_exception(remote_addr, exc):
 
     # Print and send 
     message = s.getvalue()
-    print(message, file=sys.stderr)
-    if not send_exception_email(message):
-        print('Error: Failed to send email to ADMINS', file=sys.stderr)
+    if settings.DEBUG:
+        print(message, file=sys.stderr)
+    else:
+        if not send_exception_email(message):
+            print('Error: Failed to send email to ADMINS', file=sys.stderr)
 
 def send_exception_email(message):
     """Sends a given message using Django's error email facility."""

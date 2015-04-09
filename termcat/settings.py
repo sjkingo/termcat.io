@@ -72,6 +72,7 @@ INSTALLED_APPS = (
     'grappelli',
     'django.contrib.admin',
     'debug_toolbar',
+    'paste',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -109,6 +110,14 @@ DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
 }
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
+# This is used to construct complete URLs
+SITE_PREFIX = 'https://termcat.io/p'
+
+# The salt used to encode/decode hashids. Set this once and never change
+# it or all existing hashids will become undecodable and collisions may
+# occur when encoding new ones.
+HASHID_SALT = 'termcat.io salt - do not ever change this'
 
 # Try and import the local_settings
 try:
