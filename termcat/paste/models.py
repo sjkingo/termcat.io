@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 import hashids
 
-hasher = hashids.Hashids(salt=settings.HASHID_SALT)
+hasher = hashids.Hashids(salt=settings.HASHID_SALT, min_length=4)
 
 class Paste(models.Model):
     data = models.TextField()
