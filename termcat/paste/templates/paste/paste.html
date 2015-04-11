@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html>
+<head>
+    <title>Viewing paste - termcat.io</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/paste.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/cssterm.css" %}">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-browser/0.0.7/jquery.browser.min.js"></script>
+    <script src="{% static "js/cssterm.js" %}"></script>
+</head>
+
+<body>
+
+<div class="wrapper">
+<div class="cssterm" title="Paste at {{ paste.created_dt }} from {{ paste.remote_ip_addr }}">
+{{ paste.data }}
+</div>
+</div>
+
+</body>
+
+</html>
