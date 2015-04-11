@@ -5,12 +5,14 @@ import asyncio
 
 from utils import *
 
+SERVER_BUFFER_SIZE = 32*1024
+
 @asyncio.coroutine
 def handle_client(reader, writer, remote_addr):
     """Handles a client connection to create a new paste."""
 
-    # Read data and meta from client
-    raw_data = yield from reader.readline()
+    # Read from the client and decode to a string
+    raw_data = yield from reader.read(SERVER_BUFFER_SIZE)
     decoded_data = raw_data.decode()
 
     # Pass the data off to create a new paste and encode the response
@@ -21,7 +23,6 @@ def handle_client(reader, writer, remote_addr):
     # Try to write the response back to the client. If there is a connection
     # error, delete the paste as the client will never see the URL.
     try:
-        # Write the response and close
         writer.write(encoded_response)
         yield from writer.drain()
         writer.close()
